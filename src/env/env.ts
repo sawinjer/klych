@@ -8,6 +8,8 @@ const envSchema = zod.object({
   DB_PASSWORD: zod.string().nonempty(),
   DB_NAME: zod.string().nonempty(),
   DB_HOST: zod.string().nonempty(),
+  GOOGLE_CLIENT_ID: zod.string().nonempty(),
+  GOOGLE_CLIENT_SECRET: zod.string().nonempty(),
 });
 
 export const env = envSchema.parse({
