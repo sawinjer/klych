@@ -4,6 +4,14 @@ import { db } from "@/db/db";
 import { env } from "./env/env";
 
 export const auth = betterAuth({
+  user: {
+    additionalFields: {
+      surname: {
+        type: "string",
+        input: true,
+      },
+    },
+  },
   database: drizzleAdapter(db, {
     provider: "pg",
   }),

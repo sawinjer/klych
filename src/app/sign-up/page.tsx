@@ -1,18 +1,14 @@
-import { auth } from "@/auth";
 import { GoogleSignInButton } from "@/components/GoogleSignInButton/GoogleSignInButton";
-import { SignOutButton } from "@/components/SignOutButton/SignOutButton";
-import { headers } from "next/headers";
+import { SignUpForm } from "./_components/SignUpForm/SignUpForm";
 
 export default async function SignUp() {
-	const session = await auth.api.getSession({
-		headers: await headers(),
-	});
 	return (
-		<div>
-			<main>
+		<div className="flex items-center justify-center">
+			<main className="flex items-center justify-center flex-col gap-10 max-w-[360px] w-full">
+				<h1>Реєстрація</h1>
 				<GoogleSignInButton />
-				<SignOutButton />
-				<pre>{JSON.stringify(session, null, 2)}</pre>
+				<span>або</span>
+				<SignUpForm />
 			</main>
 		</div>
 	);

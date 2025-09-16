@@ -7,9 +7,12 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "auth:generate": "bunx @better-auth/cli generate --output ./src/db/authSchema.ts",
+    "db:push": "bunx drizzle-kit push"
   },
   "dependencies": {
+    "@deemlol/next-icons": "^0.1.9",
     "better-auth": "^1.3.9",
     "dotenv": "^17.2.2",
     "drizzle-orm": "^0.44.5",
