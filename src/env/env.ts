@@ -10,11 +10,17 @@ const envSchema = zod.object({
   DB_HOST: zod.string().nonempty(),
   GOOGLE_CLIENT_ID: zod.string().nonempty(),
   GOOGLE_CLIENT_SECRET: zod.string().nonempty(),
+
+  EMAIL_HOST: zod.string(),
+  EMAIL_PORT: zod.number().int().positive().max(MAX_PORT_NUMBER),
+  EMAIL_USER: zod.string().nonempty(),
+  EMAIL_PASSWORD: zod.string().nonempty(),
 });
 
 export const env = envSchema.parse({
   ...process.env,
   DB_PORT: +(process.env.DB_PORT || ""),
+  EMAIL_PORT: +(process.env.EMAIL_PORT || ""),
 });
 
 export const getDatabaseUrl = () => {
