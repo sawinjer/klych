@@ -1,5 +1,4 @@
 import { cx } from "@/lib/cx";
-import { useBoolean } from "@/lib/hooks/useBoolean";
 import { useId, useState } from "react";
 
 export const useInputId = (originalId?: string) => {

@@ -2,11 +2,23 @@
 
 import { authClient } from "@/lib/auth-client";
 import { Button } from "../Button/Button";
+import { usePromise } from "@/lib/hooks/usePromise";
+import { useRouter } from "next/navigation";
 
 export const SignOutButton: React.FC = () => {
-	const onClick = () => {
-		authClient.signOut();
-	};
+  const [loading, wrap] = usePromise();
+  const router = useRouter();
 
-	return <Button onClick={onClick}>Вийти з аккаунту</Button>;
+  const onSignout = wrap(async () => {
+    await authClient.signOut();
+    router.push("/");
+  });
+
+  return (
+    <div>
+      <Button onClick={onSignout} disabled={loading}>
+        Вийти з аккаунту
+      </Button>
+    </div>
+  );
 };

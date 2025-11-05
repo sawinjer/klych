@@ -26,7 +26,9 @@ export const Header: React.FC = () => {
       {!isPending && !session && (
         <LinkButton href="/sign-up">Стати своїм</LinkButton>
       )}
-      {!isPending && !!session && <p>Привіт {session.user.name}!</p>}
+      {!isPending && !!session && (
+        <Link href="/profile">Привіт {session.user.name}!</Link>
+      )}
     </header>
   );
 };

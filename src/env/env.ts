@@ -15,12 +15,19 @@ const envSchema = zod.object({
   EMAIL_PORT: zod.number().int().positive().max(MAX_PORT_NUMBER),
   EMAIL_USER: zod.string().nonempty(),
   EMAIL_PASSWORD: zod.string().nonempty(),
+
+  MINIO_ENDPOINT: zod.string(),
+  MINIO_ACCESS_KEY: zod.string(),
+  MINIO_SECRET_KEY: zod.string(),
+  MINIO_BUCKET: zod.string(),
+  MINIO_USE_SSL: zod.boolean(),
 });
 
 export const env = envSchema.parse({
   ...process.env,
   DB_PORT: +(process.env.DB_PORT || ""),
   EMAIL_PORT: +(process.env.EMAIL_PORT || ""),
+  MINIO_USE_SSL: process.env.MINIO_USE_SSL === "true",
 });
 
 export const getDatabaseUrl = () => {

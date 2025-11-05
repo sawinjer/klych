@@ -10,6 +10,7 @@ export type ButtonProps = React.PropsWithChildren<{
 
 export type LinkButtonProps = React.PropsWithChildren<{
   variant?: ButtonVariant;
+  activeVariant?: ButtonVariant;
 }> &
   Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps<any>> &
   LinkProps<any>;
