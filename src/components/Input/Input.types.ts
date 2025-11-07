@@ -4,10 +4,16 @@ type HtmlProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 >;
-export type InputProps = HtmlProps & {
+export type InputProps<T extends Suggestion> = HtmlProps & {
   label?: string;
   type?: "text" | "password" | "email";
   required?: boolean;
   onValueChange?: (value: string) => void;
   error?: string;
+  suggestions?: T[];
+  onSuggestionPick?: (suggestion: T) => void;
+};
+
+export type Suggestion = {
+  name: string;
 };

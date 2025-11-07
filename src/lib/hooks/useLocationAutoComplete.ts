@@ -1,9 +1,9 @@
+import makeGeoCodingClient from "@mapbox/mapbox-sdk/services/geocoding";
 import { useCallback, useState } from "react";
 import { debounce } from "../debounce";
 import { mapboxClient } from "../mapboxClient";
-import makeGeoCodingClient from "@mapbox/mapbox-sdk/services/geocoding";
 
-export interface Location {
+export interface LocationSuggestion {
   name: string;
   lat: number;
   lng: number;
@@ -13,7 +13,7 @@ const client = makeGeoCodingClient(mapboxClient);
 
 export const useLocationAutoComplete = (initialValue?: string) => {
   const [value, setValue] = useState(initialValue);
-  const [suggestions, setSuggestions] = useState<Location[]>([]);
+  const [suggestions, setSuggestions] = useState<LocationSuggestion[]>([]);
 
   const checkForSuggestions = useCallback(
     debounce(async (query: string) => {
@@ -38,6 +38,10 @@ export const useLocationAutoComplete = (initialValue?: string) => {
     [],
   );
 
+  const hideSuggestions = () => {
+    setSuggestions([]);
+  };
+
   const onValueChange: React.Dispatch<
     React.SetStateAction<string | undefined>
   > = (change) => {
@@ -53,5 +57,11 @@ export const useLocationAutoComplete = (initialValue?: string) => {
     });
   };
 
-  return { value, setValue: onValueChange, suggestions };
+  return {
+    value,
+    setValue,
+    changeValue: onValueChange,
+    suggestions,
+    hideSuggestions,
+  };
 };

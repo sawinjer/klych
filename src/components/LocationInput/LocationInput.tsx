@@ -1,15 +1,33 @@
 "use client";
 
-import { useLocationAutoComplete } from "@/lib/hooks/useLocationAutoComplete";
+import {
+  type LocationSuggestion,
+  useLocationAutoComplete,
+} from "@/lib/hooks/useLocationAutoComplete";
 import { Input } from "../Input/Input";
 
-export const LocationInput: React.FC = () => {
-  const { value, setValue, suggestions } = useLocationAutoComplete();
+interface Props {
+  onLocationPick: (location: LocationSuggestion) => void;
+}
+
+export const LocationInput: React.FC<Props> = (props) => {
+  const { value, setValue, changeValue, hideSuggestions, suggestions } =
+    useLocationAutoComplete();
+
+  const onSuggestionPick = (suggestion: LocationSuggestion) => {
+    setValue(suggestion.name);
+    hideSuggestions();
+    props.onLocationPick(suggestion);
+  };
 
   return (
-    <>
-      <Input value={value || ""} onValueChange={setValue} />
-      <pre>{JSON.stringify(suggestions, null, 2)}</pre>
-    </>
+    <div className="relative">
+      <Input
+        value={value || ""}
+        onValueChange={changeValue}
+        onSuggestionPick={onSuggestionPick}
+        suggestions={suggestions}
+      />
+    </div>
   );
 };

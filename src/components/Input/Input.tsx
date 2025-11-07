@@ -1,15 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
-import { InputProps } from "./Input.types";
-import { useHasValue, useInputId, useLabelStyles } from "./Input.utils";
-import { useBoolean } from "@/lib/hooks/useBoolean";
+import { Eye, EyeOff } from "@deemlol/next-icons";
+import type React from "react";
+import { useState } from "react";
 import { addSideEffect } from "@/lib/addSideEffect";
 import { cx } from "@/lib/cx";
-import { Eye, EyeOff } from "@deemlol/next-icons";
+import { useBoolean } from "@/lib/hooks/useBoolean";
+import type { InputProps, Suggestion } from "./Input.types";
+import { useHasValue, useInputId, useLabelStyles } from "./Input.utils";
+import { SuggestionsList } from "./SuggestionsList";
 
-export const Input: React.FC<InputProps> = (props) => {
-  const { label, onValueChange, error, ...rest } = props;
+export const Input = <T extends Suggestion>(props: InputProps<T>) => {
+  const {
+    label,
+    onValueChange,
+    error,
+    suggestions,
+    onSuggestionPick,
+    ...rest
+  } = props;
   const id = useInputId(props.id);
   const [type, setType] = useState(rest.type || "text");
   const focused = useBoolean();
@@ -65,6 +74,12 @@ export const Input: React.FC<InputProps> = (props) => {
           >
             {type === "password" ? <Eye /> : <EyeOff />}
           </button>
+        )}
+        {suggestions && (
+          <SuggestionsList
+            suggestions={suggestions}
+            onPick={onSuggestionPick}
+          />
         )}
       </div>
       {Boolean(error) && <span className="text-red-500">{error}</span>}
