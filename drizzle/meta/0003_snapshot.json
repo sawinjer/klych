@@ -1,6 +1,6 @@
 {
-  "id": "e049bbf2-4092-41c1-a4ea-b132c2a537d0",
-  "prevId": "b2f1fa08-d442-4913-bea3-e61513be3df9",
+  "id": "704ac47e-d316-4c02-9eb1-91189b369b4a",
+  "prevId": "e049bbf2-4092-41c1-a4ea-b132c2a537d0",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -93,15 +93,15 @@
         "account_user_id_user_id_fk": {
           "name": "account_user_id_user_id_fk",
           "tableFrom": "account",
+          "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],
-          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -169,25 +169,25 @@
         "session_user_id_user_id_fk": {
           "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
+          "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],
-          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "session_token_unique": {
           "name": "session_token_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "token"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       },
       "policies": {},
@@ -256,10 +256,10 @@
       "uniqueConstraints": {
         "user_email_unique": {
           "name": "user_email_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       },
       "policies": {},
@@ -373,15 +373,9 @@
           "primaryKey": false,
           "notNull": false
         },
-        "location_lng": {
-          "name": "location_lng",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "location_lat": {
-          "name": "location_lat",
-          "type": "numeric",
+        "location": {
+          "name": "location",
+          "type": "geometry(point)",
           "primaryKey": false,
           "notNull": false
         },
@@ -423,15 +417,15 @@
         "klych_author_id_user_id_fk": {
           "name": "klych_author_id_user_id_fk",
           "tableFrom": "klych",
+          "tableTo": "user",
           "columnsFrom": [
             "author_id"
           ],
-          "tableTo": "user",
           "columnsTo": [
             "id"
           ],
-          "onUpdate": "no action",
-          "onDelete": "cascade"
+          "onDelete": "cascade",
+          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -456,10 +450,10 @@
     }
   },
   "schemas": {},
-  "views": {},
   "sequences": {},
   "roles": {},
   "policies": {},
+  "views": {},
   "_meta": {
     "columns": {},
     "schemas": {},

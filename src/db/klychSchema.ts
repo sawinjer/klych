@@ -6,9 +6,11 @@ import {
   pgEnum,
   decimal,
   numeric,
+  geometry,
 } from "drizzle-orm/pg-core";
 import { user } from "./authSchema";
 import { KlychCategory } from "@/lib/enums/KlychCategory";
+import { InferSelectModel } from "drizzle-orm";
 
 export const categoryEnum = pgEnum(
   "category",
@@ -23,13 +25,15 @@ export const klych = pgTable("klych", {
     .references(() => user.id, { onDelete: "cascade" }),
   category: categoryEnum("category").default(KlychCategory.Other).notNull(),
   coverImage: text("cover_image").notNull(),
-  requiresSpecialSkills: boolean().default(false).notNull(),
+  requiresSpecialSkills: boolean("requires_special_skills")
+    .default(false)
+    .notNull(),
   online: boolean("online").default(false).notNull(),
   locationName: text("location_name"),
-  locationLng: decimal("location_lng"),
-  locationLat: decimal("location_lat"),
+  location: geometry("location", { type: "point", mode: "xy", srid: 4326 }),
   datetimeOfOccurance: timestamp("datetime_of_occurance").notNull(),
   requiredPeoplesAmount: numeric("required_peoples_amount").notNull(),
+
   description: text("description").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
@@ -37,3 +41,5 @@ export const klych = pgTable("klych", {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
+
+export type Klych = InferSelectModel<typeof klych>;

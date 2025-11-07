@@ -1,0 +1,1 @@
+ALTER TABLE "klych" RENAME COLUMN "requiresSpecialSkills" TO "requires_special_skills";

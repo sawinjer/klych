@@ -1,6 +1,6 @@
 {
-  "id": "80259086-b190-4749-8542-407f599613d0",
-  "prevId": "3847f483-8b17-48d9-9b8a-159752808db2",
+  "id": "b2f1fa08-d442-4913-bea3-e61513be3df9",
+  "prevId": "2332f23a-6c69-4800-bc8a-63b46e41296b",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -316,9 +316,145 @@
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
+    },
+    "public.klych": {
+      "name": "klych",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "author_id": {
+          "name": "author_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "category",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'other'"
+        },
+        "cover_image": {
+          "name": "cover_image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "requires_special_skills": {
+          "name": "requires_special_skills",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "online": {
+          "name": "online",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "location_name": {
+          "name": "location_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location_lng": {
+          "name": "location_lng",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location_lat": {
+          "name": "location_lat",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "datetime_of_occurance": {
+          "name": "datetime_of_occurance",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "required_peoples_amount": {
+          "name": "required_peoples_amount",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "klych_author_id_user_id_fk": {
+          "name": "klych_author_id_user_id_fk",
+          "tableFrom": "klych",
+          "tableTo": "user",
+          "columnsFrom": [
+            "author_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.category": {
+      "name": "category",
+      "schema": "public",
+      "values": [
+        "military",
+        "education",
+        "ecology",
+        "animals",
+        "art",
+        "other"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},

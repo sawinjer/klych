@@ -1,10 +1,23 @@
 services:
   db:
-    image: postgres
-    restart: unless-stopped 
+    image: postgis/postgis:17-3.4
+    restart: unless-stopped
     ports:
       - ${DB_PORT}:5432
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./data:/var/lib/postgresql/data
+  meilisearch:
+    image: getmeili/meilisearch:v1.8.3
+    volumes:
+      - meili_data:/meili_data
+    environment:
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+      MEILI_ENV: ${MEILI_ENV}
+
+volumes:
+  meili_data:
+    driver: local
