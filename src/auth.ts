@@ -10,6 +10,31 @@ export const auth = betterAuth({
         type: "string",
         input: true,
       },
+      age: {
+        type: "number",
+        input: true,
+        required: false,
+      },
+      gender: {
+        type: "string",
+        input: true,
+        required: false,
+      },
+      shortInfo: {
+        type: "string",
+        input: true,
+        required: false,
+      },
+      placeOfVolunteering: {
+        type: "string",
+        input: true,
+        required: false,
+      },
+      placeOfWork: {
+        type: "string",
+        input: true,
+        required: false,
+      },
     },
   },
   database: drizzleAdapter(db, {

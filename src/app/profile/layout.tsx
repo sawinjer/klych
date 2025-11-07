@@ -1,8 +1,8 @@
-import { auth } from "@/auth";
-import { ProfileNavigation } from "@/components/Profile/ProfileNavigation/ProfileNavigation";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type React from "react";
+import { auth } from "@/auth";
+import { ProfileNavigation } from "@/components/Profile/ProfileNavigation/ProfileNavigation";
 
 const Layout: React.FC<React.PropsWithChildren> = async (props) => {
   const session = await auth.api.getSession({
@@ -14,7 +14,7 @@ const Layout: React.FC<React.PropsWithChildren> = async (props) => {
   }
 
   return (
-    <div className="w-full flex-col flex gap-10 py-10">
+    <div className="w-full flex gap-10 py-10 px-5">
       <ProfileNavigation />
       {props.children}
     </div>

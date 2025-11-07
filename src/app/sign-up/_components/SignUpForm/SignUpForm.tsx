@@ -1,13 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import type React from "react";
+import { useState } from "react";
 import { Button } from "@/components/Button/Button";
 import { Input } from "@/components/Input/Input";
-import { isPassowrdValid } from "./SignUpForm.utils";
-import { useBoolean } from "@/lib/hooks/useBoolean";
 import { addSideEffect } from "@/lib/addSideEffect";
-import { usePromise } from "@/lib/hooks/usePromise";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useBoolean } from "@/lib/hooks/useBoolean";
+import { usePromise } from "@/lib/hooks/usePromise";
+import { isPassowrdValid } from "./SignUpForm.utils";
 
 export const SignUpForm: React.FC = () => {
   const [name, setName] = useState("");

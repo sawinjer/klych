@@ -1,8 +1,8 @@
-import { GoogleSignInButton } from "@/components/GoogleSignInButton/GoogleSignInButton";
-import { SignUpForm } from "./_components/SignUpForm/SignUpForm";
-import { auth } from "@/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { auth } from "@/auth";
+import { GoogleSignInButton } from "@/components/GoogleSignInButton/GoogleSignInButton";
+import { SignUpForm } from "./_components/SignUpForm/SignUpForm";
 
 export default async function SignUp() {
   const session = await auth.api.getSession({

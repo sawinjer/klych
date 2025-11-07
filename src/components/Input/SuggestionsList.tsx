@@ -26,7 +26,7 @@ export const SuggestionsList = <T extends Suggestion>(props: Props<T>) => {
             className={cx(
               "w-full text-left cursor-pointer p-3 rounded-md hover:bg-[rgba(255,255,255,0.3)]",
               index + 1 !== suggestions.length &&
-              "border-b-1 border-white rounded-b-none",
+                "border-b-1 border-white rounded-b-none",
               index !== 0 && "rounded-t-none",
             )}
             onClick={onPick(suggestion)}

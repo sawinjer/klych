@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useId, useState } from "react";
 import { Image as ImageIcon } from "lucide-react";
+import Image from "next/image";
+import type React from "react";
+import { useEffect, useId, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { fileToDataUrl } from "@/lib/fileToUrl";
-import Image from "next/image";
 
 export const ProfilePicture: React.FC = () => {
   const id = useId();
@@ -51,7 +52,7 @@ export const ProfilePicture: React.FC = () => {
     <>
       <label
         htmlFor={id}
-        className="w-[320px] aspect-square rounded-full border-1 border-white flex justify-center items-center overflow-hidden cursor-pointer"
+        className="w-[320px] aspect-square rounded-xl border-1 border-white flex justify-center items-center overflow-hidden cursor-pointer"
       >
         {profilePicture ? (
           <Image

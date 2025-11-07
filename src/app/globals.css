@@ -8,14 +8,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-mono: var(--font-jetbrains-mono);
+  --font-inter: var(--font-inter);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family:
-    JetBrains Mono,
-    Helvetica,
-    sans-serif;
+  font-family: Inter, Helvetica, sans-serif;
 }

@@ -1,12 +1,12 @@
-import { NextResponse } from "next/server";
-import { randomUUID } from "crypto";
-import { s3 } from "../../../lib/s3";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
-import { env } from "../../../env/env";
-import { getFilePath } from "../../../env/s3Url";
+import * as crypto from "crypto";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
 import sharp from "sharp";
 import { auth } from "@/auth";
-import { headers } from "next/headers";
+import { env } from "../../../env/env";
+import { getFilePath } from "../../../env/s3Url";
+import { s3 } from "../../../lib/s3";
 
 export const runtime = "nodejs";
 
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
       .toFormat("webp", { quality: 90 })
       .toBuffer();
 
-    const objectName = `${Date.now()}-${randomUUID()}`;
+    const objectName = `${Date.now()}-${crypto.randomUUID()}`;
 
     const buffer = Buffer.from(resizedImage);
 

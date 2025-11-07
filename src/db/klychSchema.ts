@@ -1,16 +1,15 @@
+import type { InferSelectModel } from "drizzle-orm";
 import {
+  boolean,
+  geometry,
+  numeric,
+  pgEnum,
   pgTable,
   text,
   timestamp,
-  boolean,
-  pgEnum,
-  decimal,
-  numeric,
-  geometry,
 } from "drizzle-orm/pg-core";
-import { user } from "./authSchema";
 import { KlychCategory } from "@/lib/enums/KlychCategory";
-import { InferSelectModel } from "drizzle-orm";
+import { user } from "./authSchema";
 
 export const categoryEnum = pgEnum(
   "category",

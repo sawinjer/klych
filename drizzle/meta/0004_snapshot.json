@@ -1,6 +1,6 @@
 {
-  "id": "2332f23a-6c69-4800-bc8a-63b46e41296b",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "94c11a2e-c171-489d-b1d1-f681ff76dd4e",
+  "prevId": "704ac47e-d316-4c02-9eb1-91189b369b4a",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -94,8 +94,12 @@
           "name": "account_user_id_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -166,8 +170,12 @@
           "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": ["user_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -177,7 +185,9 @@
         "session_token_unique": {
           "name": "session_token_unique",
           "nullsNotDistinct": false,
-          "columns": ["token"]
+          "columns": [
+            "token"
+          ]
         }
       },
       "policies": {},
@@ -238,6 +248,36 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        },
+        "age": {
+          "name": "age",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gender": {
+          "name": "gender",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "short_info": {
+          "name": "short_info",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "place_of_volunteering": {
+          "name": "place_of_volunteering",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "place_of_work": {
+          "name": "place_of_work",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
@@ -247,7 +287,9 @@
         "user_email_unique": {
           "name": "user_email_unique",
           "nullsNotDistinct": false,
-          "columns": ["email"]
+          "columns": [
+            "email"
+          ]
         }
       },
       "policies": {},
@@ -341,8 +383,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "requiresSpecialSkills": {
-          "name": "requiresSpecialSkills",
+        "requires_special_skills": {
+          "name": "requires_special_skills",
           "type": "boolean",
           "primaryKey": false,
           "notNull": true,
@@ -361,15 +403,9 @@
           "primaryKey": false,
           "notNull": false
         },
-        "location_lng": {
-          "name": "location_lng",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "location_lat": {
-          "name": "location_lat",
-          "type": "numeric",
+        "location": {
+          "name": "location",
+          "type": "geometry(point)",
           "primaryKey": false,
           "notNull": false
         },
@@ -412,8 +448,12 @@
           "name": "klych_author_id_user_id_fk",
           "tableFrom": "klych",
           "tableTo": "user",
-          "columnsFrom": ["author_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "author_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -429,7 +469,14 @@
     "public.category": {
       "name": "category",
       "schema": "public",
-      "values": ["military", "education", "ecology", "animals", "art", "other"]
+      "values": [
+        "military",
+        "education",
+        "ecology",
+        "animals",
+        "art",
+        "other"
+      ]
     }
   },
   "schemas": {},

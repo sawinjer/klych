@@ -1,4 +1,10 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+} from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -12,6 +18,11 @@ export const user = pgTable("user", {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
   surname: text("surname"),
+  age: integer("age"),
+  gender: text("gender"),
+  shortInfo: text("short_info"),
+  placeOfVolunteering: text("place_of_volunteering"),
+  placeOfWork: text("place_of_work"),
 });
 
 export const session = pgTable("session", {

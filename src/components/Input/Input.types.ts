@@ -6,7 +6,7 @@ type HtmlProps = React.DetailedHTMLProps<
 >;
 export type InputProps<T extends Suggestion> = HtmlProps & {
   label?: string;
-  type?: "text" | "password" | "email";
+  type?: "text" | "password" | "email" | "number";
   required?: boolean;
   onValueChange?: (value: string) => void;
   error?: string;

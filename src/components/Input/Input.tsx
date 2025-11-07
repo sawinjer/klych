@@ -52,7 +52,7 @@ export const Input = <T extends Suggestion>(props: InputProps<T>) => {
         <input
           {...rest}
           className={cx(
-            "border border-[#F7F4E3] rounded-xl min-h-[72px] px-6 pt-2 w-full transition-colors duration-200 cursor-pointer disabled:cursor-not-allowed disabled:border-[#C4C1B1] disabled:text-gray-300",
+            "border border-[#F7F4E3] rounded-xl min-h-[48px] pl-2 pt-2 w-full transition-colors duration-200 cursor-pointer disabled:cursor-not-allowed disabled:border-[#C4C1B1] disabled:text-gray-300",
             rest.type === "password" && "pr-12",
             error && "border-red-500",
             rest.className,

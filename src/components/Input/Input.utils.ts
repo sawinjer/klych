@@ -1,5 +1,6 @@
+import { useId } from "react";
 import { cx } from "@/lib/cx";
-import { useId, useState } from "react";
+import { useWeakState } from "@/lib/hooks/useWeakState";
 
 export const useInputId = (originalId?: string) => {
   const backupId = useId();
@@ -12,7 +13,7 @@ export const useInputId = (originalId?: string) => {
 };
 
 export const useHasValue = (initialHasValue?: boolean) => {
-  const [hasValue, setHasValue] = useState(initialHasValue);
+  const [hasValue, setHasValue] = useWeakState(initialHasValue);
 
   const onInput: React.FormEventHandler<HTMLInputElement> = (e) => {
     const target = e.target as HTMLInputElement;
@@ -26,7 +27,7 @@ export const useLabelStyles = (focused: boolean, hasValue: boolean) => {
   return cx(
     "absolute transition-all",
     focused || hasValue
-      ? "top-1 left-2"
+      ? "top-1 left-2 text-xs"
       : "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ",
   );
 };

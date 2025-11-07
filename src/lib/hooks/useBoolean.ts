@@ -9,5 +9,5 @@ export const useBoolean = (defaultState?: boolean) => {
   const setTrue = useCallback(() => setState(true), []);
   const setFalse = useCallback(() => setState(false), []);
 
-  return { state, toggle, setTrue, setFalse };
+  return { state, toggle, setTrue, setFalse, setState };
 };
