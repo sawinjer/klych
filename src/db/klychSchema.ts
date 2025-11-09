@@ -24,14 +24,11 @@ export const klych = pgTable("klych", {
     .references(() => user.id, { onDelete: "cascade" }),
   category: categoryEnum("category").default(KlychCategory.Other).notNull(),
   coverImage: text("cover_image").notNull(),
-  requiresSpecialSkills: boolean("requires_special_skills")
-    .default(false)
-    .notNull(),
   online: boolean("online").default(false).notNull(),
   locationName: text("location_name"),
   location: geometry("location", { type: "point", mode: "xy", srid: 4326 }),
   datetimeOfOccurance: timestamp("datetime_of_occurance").notNull(),
-  requiredPeoplesAmount: numeric("required_peoples_amount").notNull(),
+  requiredPeoplesAmount: numeric("required_peoples_amount"),
 
   description: text("description").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),

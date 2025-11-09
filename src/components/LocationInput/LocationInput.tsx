@@ -5,29 +5,33 @@ import {
   useLocationAutoComplete,
 } from "@/lib/hooks/useLocationAutoComplete";
 import { Input } from "../Input/Input";
+import type { InputProps } from "../Input/Input.types";
 
-interface Props {
+type Props = Omit<
+  InputProps<LocationSuggestion>,
+  "value" | "onValueChange" | "onSuggestionPick" | "suggestions"
+> & {
   onLocationPick: (location: LocationSuggestion) => void;
-}
+};
 
 export const LocationInput: React.FC<Props> = (props) => {
   const { value, setValue, changeValue, hideSuggestions, suggestions } =
     useLocationAutoComplete();
+  const { onLocationPick, ...rest } = props;
 
   const onSuggestionPick = (suggestion: LocationSuggestion) => {
     setValue(suggestion.name);
     hideSuggestions();
-    props.onLocationPick(suggestion);
+    onLocationPick(suggestion);
   };
 
   return (
-    <div className="relative">
-      <Input
-        value={value || ""}
-        onValueChange={changeValue}
-        onSuggestionPick={onSuggestionPick}
-        suggestions={suggestions}
-      />
-    </div>
+    <Input
+      value={value || ""}
+      onValueChange={changeValue}
+      onSuggestionPick={onSuggestionPick}
+      suggestions={suggestions}
+      {...rest}
+    />
   );
 };

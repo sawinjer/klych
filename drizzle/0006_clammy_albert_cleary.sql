@@ -1,0 +1,1 @@
+ALTER TABLE "klych" DROP COLUMN "requires_special_skills";

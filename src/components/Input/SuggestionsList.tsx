@@ -18,7 +18,7 @@ export const SuggestionsList = <T extends Suggestion>(props: Props<T>) => {
   }
 
   return (
-    <ul className="absolute -bottom-2 right-0 left-0 translate-y-full bg-[rgba(255,255,255,0.1)] rounded-md max-h-[250px] overflow-auto">
+    <ul className="absolute -bottom-2 right-0 left-0 translate-y-full bg-[#373737] rounded-md max-h-[250px] overflow-auto">
       {suggestions.map((suggestion, index) => (
         <li key={suggestion.name}>
           <button

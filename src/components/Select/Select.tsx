@@ -38,7 +38,7 @@ export const Select = <T extends string = string>(props: SelectProps<T>) => {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-full">
       <div className="relative">
         {Boolean(label) && (
           <label htmlFor={id} className={labelClassName}>

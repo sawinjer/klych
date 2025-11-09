@@ -11,3 +11,5 @@ export const useBoolean = (defaultState?: boolean) => {
 
   return { state, toggle, setTrue, setFalse, setState };
 };
+
+export type BooleanState = ReturnType<typeof useBoolean>;

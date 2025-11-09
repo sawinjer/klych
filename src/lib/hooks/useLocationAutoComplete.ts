@@ -9,6 +9,12 @@ export interface LocationSuggestion {
   lng: number;
 }
 
+const mockSuggestions = new Array(10).fill("").map((_, index) => ({
+  name: `Place - ${index + 1}`,
+  lat: 5 * index,
+  lng: 8 * index,
+}));
+
 const client = makeGeoCodingClient(mapboxClient);
 
 export const useLocationAutoComplete = (initialValue?: string) => {

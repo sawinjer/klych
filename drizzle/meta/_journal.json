@@ -36,6 +36,20 @@
       "when": 1762530707181,
       "tag": "0004_happy_next_avengers",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1762548834449,
+      "tag": "0005_odd_green_goblin",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1762722454989,
+      "tag": "0006_clammy_albert_cleary",
+      "breakpoints": true
     }
   ]
 }

@@ -1,0 +1,1 @@
+ALTER TABLE "klych" ALTER COLUMN "required_peoples_amount" DROP NOT NULL;

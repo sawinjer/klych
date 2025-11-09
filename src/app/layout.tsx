@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header/Header";
+import localFont from 'next/font/local';
 
-const inter = Inter({
-  variable: "--font-inter",
-});
+const IntroFont = localFont({
+  src: "../../public/Intro.ttf"
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased bg-[#202020]`}>
+      <body className={`${IntroFont.className} dark antialiased bg-[#202020]`}>
         <Header />
         {children}
       </body>
