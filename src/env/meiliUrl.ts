@@ -1,4 +1,4 @@
-import { env } from "./env";
+import { publicEnv } from "./publicEnv";
 
-const protocol = env.MEILI_USE_SSL ? "https" : "http";
-export const meiliUrl = `${protocol}://${env.MEILI_HOST}:${env.MEILI_PORT}`;
+const protocol = publicEnv.NEXT_PUBLIC_MEILI_USE_SSL ? "https" : "http";
+export const meiliUrl = `${protocol}://${publicEnv.NEXT_PUBLIC_MEILI_HOST}:${publicEnv.NEXT_PUBLIC_MEILI_PORT}`;

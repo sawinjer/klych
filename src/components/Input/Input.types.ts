@@ -11,6 +11,7 @@ export type InputProps<T extends Suggestion> = HtmlProps & {
   onValueChange?: (value: string) => void;
   error?: string;
   suggestions?: T[];
+  iconLeft?: React.ReactNode;
   onSuggestionPick?: (suggestion: T) => void;
 };
 

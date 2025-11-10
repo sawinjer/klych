@@ -1,5 +1,4 @@
 import zod from "zod";
-import { publicEnvSchema } from "./publicEnv";
 
 const MAX_PORT_NUMBER = 65535;
 
@@ -24,20 +23,13 @@ const envSchema = zod.object({
   MINIO_USE_SSL: zod.boolean(),
 
   MEILI_MASTER_KEY: zod.string(),
-  MEILI_HOST: zod.string(),
-  MEILI_USE_SSL: zod.boolean(),
-  MEILI_PORT: zod.number().int().positive().max(MAX_PORT_NUMBER),
-
-  ...publicEnvSchema,
 });
 
 export const env = envSchema.parse({
   ...process.env,
   DB_PORT: +(process.env.DB_PORT || ""),
   EMAIL_PORT: +(process.env.EMAIL_PORT || ""),
-  MEILI_PORT: +(process.env.MEILI_PORT || ""),
   MINIO_USE_SSL: process.env.MINIO_USE_SSL === "true",
-  MEILI_USE_SSL: process.env.MEILI_USE_SSL === "true",
 });
 
 export const getDatabaseUrl = () => {
