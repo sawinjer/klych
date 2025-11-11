@@ -6,7 +6,6 @@ type Location = { lat: number; lng: number };
 export interface KlychSearchResult {
   id: string;
   title: string;
-  description: string;
   coverImage: string;
   category: KlychCategory;
   online: boolean;
@@ -18,6 +17,7 @@ export interface KlychSearchResult {
   };
   datetimeOfOccurance: Date;
   authorId: string;
+  respondsCount: number;
   author: {
     name: string;
     surname: string | null;
@@ -36,6 +36,7 @@ export type SearchKlychContextValue = SearchKlychFilter & {
   items: KlychSearchResult[];
   hasMoreItems: boolean;
   loadMore: () => Promise<void>;
+  refresh: () => Promise<void>;
   setSearch: SetState<string>;
   setCategories: SetState<KlychCategory[]>;
   setLocation: SetState<Location | undefined>;

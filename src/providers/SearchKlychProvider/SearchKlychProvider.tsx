@@ -28,6 +28,10 @@ export const SearchKlychProvider: React.FC<
   });
   const [response, setResponse] = useState<Response>(props.initResponse);
 
+  const refresh = async () => {
+    setResponse(await searchKlychs(filter, response.page));
+  };
+
   const makeSearch = useCallback(
     debounce(async (filter: SearchKlychFilter, page: number) => {
       setResponse(await searchKlychs(filter, page));
@@ -69,6 +73,7 @@ export const SearchKlychProvider: React.FC<
     loadMore,
     items: response?.hits || [],
     hasMoreItems: response ? response.page < response.totalPages : false,
+    refresh,
     setSearch: updateFilterField("search"),
     setCategories: updateFilterField("categories"),
     setLocation: updateFilterField("location"),

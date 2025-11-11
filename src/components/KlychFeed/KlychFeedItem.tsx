@@ -1,9 +1,18 @@
-import { Calendar, Clock, Heart, House, Map as MapIcon } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  Heart,
+  House,
+  Map as MapIcon,
+  User,
+} from "lucide-react";
+import moment from "moment";
 import Image from "next/image";
+import { useSearchKlych } from "@/providers/SearchKlychProvider/SearchKlychProvider";
 import type { KlychSearchResult } from "@/providers/SearchKlychProvider/SearchKlychProvider.interface";
 import { Button } from "../Button/Button";
 import { categoriesOptionsDict } from "../KlychCreationForm/KlychCategorySelect";
-import moment from "moment";
+import { RespondButton } from "../RespondButton/RespondButton";
 
 interface Props {
   klych: KlychSearchResult;
@@ -11,6 +20,7 @@ interface Props {
 
 export const KlychFeedItem: React.FC<Props> = (props) => {
   const { klych } = props;
+  const { refresh } = useSearchKlych();
   const authorName = [klych.author.name, klych.author.surname]
     .filter(Boolean)
     .join(" ");
@@ -45,6 +55,11 @@ export const KlychFeedItem: React.FC<Props> = (props) => {
                 <Clock /> {timeString}
               </span>
             )}
+
+            <span className="flex gap-1 items-center">
+              <User />
+              {[klych.respondsCount, klych.requiredPeoplesAmount].join("/")}
+            </span>
           </div>
         </div>
 
@@ -59,7 +74,11 @@ export const KlychFeedItem: React.FC<Props> = (props) => {
         <Button variant="outlined">
           <Heart />
         </Button>
-        <Button>Відгукнутися</Button>
+        <RespondButton
+          onRespond={refresh}
+          klychId={klych.id}
+          authorId={klych.authorId}
+        />
       </div>
     </div>
   );

@@ -1,0 +1,15 @@
+.tooltip {
+  position: absolute;
+  bottom: -10px;
+  background-color: #fff;
+  border-radius: 6px;
+  transform: translateY(100%);
+  max-width: max-content;
+  width: 100%;
+  padding: 2px 6px;
+  display: none;
+}
+
+.button:hover .tooltip {
+  display: block;
+}

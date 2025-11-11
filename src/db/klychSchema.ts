@@ -16,6 +16,12 @@ export const categoryEnum = pgEnum(
   Object.values(KlychCategory) as [string],
 );
 
+export const respondStatus = pgEnum("respond_status", [
+  "pending",
+  "accepted",
+  "declined",
+]);
+
 export const klych = pgTable("klych", {
   id: text("id").primaryKey(),
   title: text("title").notNull(),
@@ -36,6 +42,17 @@ export const klych = pgTable("klych", {
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
+});
+
+export const klychResponds = pgTable("klych_responds", {
+  id: text("id").primaryKey(),
+  klychId: text("klych_id")
+    .notNull()
+    .references(() => klych.id, { onDelete: "cascade" }),
+  authorId: text("author_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  status: respondStatus("status").default("pending"),
 });
 
 export type Klych = InferSelectModel<typeof klych>;

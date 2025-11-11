@@ -6,6 +6,7 @@ export type ButtonVariant = "contained" | "outlined";
 export type ButtonProps = React.PropsWithChildren<{
   variant?: ButtonVariant;
   icon?: React.ReactNode;
+  tooltip?: string;
 }> &
   React.ButtonHTMLAttributes<HTMLButtonElement>;
 

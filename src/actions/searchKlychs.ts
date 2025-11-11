@@ -1,9 +1,9 @@
 "use server";
 
-import { eq, inArray } from "drizzle-orm";
+import { and, eq, inArray, sql } from "drizzle-orm";
 import { user } from "@/db/authSchema";
 import { db } from "@/db/db";
-import { klych } from "@/db/klychSchema";
+import { klych, klychResponds } from "@/db/klychSchema";
 import { meiliClient } from "@/lib/meiliClient";
 import type {
   KlychSearchResult,
@@ -24,23 +24,47 @@ export const searchKlychs = async (filter: SearchKlychFilter, page: number) => {
   });
 
   const ids = response.hits.map((hit) => hit.id) as string[];
+
   const klychs = await db
-    .select()
+    .select({
+      id: klych.id,
+      title: klych.title,
+      coverImage: klych.coverImage,
+      category: klych.category,
+      online: klych.online,
+      requiredPeoplesAmount: klych.requiredPeoplesAmount,
+      locationName: klych.locationName,
+      location: klych.location,
+      datetimeOfOccurance: klych.datetimeOfOccurance,
+      authorId: klych.authorId,
+      author: {
+        name: user.name,
+        surname: user.surname,
+      },
+      respondsCount: sql<number>`COUNT(${klychResponds.id})`.as(
+        "respondsCount",
+      ),
+    })
     .from(klych)
     .innerJoin(user, eq(user.id, klych.authorId))
-    .where(inArray(klych.id, ids));
-  const mapped = klychs.map((item) => ({
-    ...item.klych,
-    author: {
-      name: item.user.name,
-      surname: item.user.surname,
-    },
-  })) as KlychSearchResult[];
+    .leftJoin(
+      klychResponds,
+      and(
+        eq(klychResponds.klychId, klych.id),
+        eq(klychResponds.status, "accepted"),
+      ),
+    )
+    .where(inArray(klych.id, ids))
+    .groupBy(klych.id, user.id);
 
   return {
     hits: ids
-      .map((id) => mapped.find((klych) => klych.id === id))
-      .filter(Boolean) as KlychSearchResult[],
+      .map((id) => klychs.find((klych) => klych.id === id))
+      .filter(Boolean)
+      .map((klych) => ({
+        ...klych,
+        respondsCount: +(klych?.respondsCount || 0),
+      })) as KlychSearchResult[],
     totalPages: response.totalPages,
     page,
   };

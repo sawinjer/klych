@@ -1,9 +1,8 @@
 import { headers } from "next/headers";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { GoogleSignInButton } from "@/components/GoogleSignInButton/GoogleSignInButton";
-import { SignUpForm } from "./_components/SignUpForm/SignUpForm";
+import { SignInForm } from "@/components/SignInForm/SignInForm";
 
 export default async function SignUp() {
   const session = await auth.api.getSession({
@@ -17,11 +16,10 @@ export default async function SignUp() {
   return (
     <div className="flex items-center justify-center">
       <main className="flex items-center justify-center flex-col gap-10 max-w-[360px] w-full">
-        <h1>Реєстрація</h1>
+        <h1>Увійти в аккаунт</h1>
         <GoogleSignInButton />
         <span>або</span>
-        <SignUpForm />
-        <Link href="/sign-in">Уже маю аккаунт</Link>
+        <SignInForm />
       </main>
     </div>
   );
