@@ -1,11 +1,11 @@
 import { KlychFeed } from "@/components/KlychFeed/KlychFeed";
 import { KlychFilters } from "@/components/KlychFilters/KlychFilters";
 import { KlychSearchInput } from "@/components/KlychSearchInput/KlychSearchInput";
-import { SearchKlychProvider } from "@/providers/SearchKlychProvider/SearchKlychProvider";
+import { SearchKlychProviderWithServerProps } from "@/providers/SearchKlychProvider/SearchKlychProviderWithServerProps";
 
 const KlychsList = () => {
   return (
-    <SearchKlychProvider>
+    <SearchKlychProviderWithServerProps>
       <div className="flex flex-col gap-10 px-10">
         <KlychSearchInput />
         <div className="flex gap-10">
@@ -13,7 +13,7 @@ const KlychsList = () => {
           <KlychFeed />
         </div>
       </div>
-    </SearchKlychProvider>
+    </SearchKlychProviderWithServerProps>
   );
 };
 

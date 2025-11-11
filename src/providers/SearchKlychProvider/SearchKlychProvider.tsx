@@ -2,18 +2,14 @@
 
 import type React from "react";
 import { createContext, useCallback, useContext, useState } from "react";
+import { searchKlychs } from "@/actions/searchKlychs";
 import { debounce } from "@/lib/debounce";
-import { publicMeiliClient } from "@/lib/publicMeiliClient";
 import type {
   KlychSearchResult,
   SearchKlychContextValue,
   SearchKlychFilter,
   SetState,
 } from "./SearchKlychProvider.interface";
-import {
-  getSorting,
-  mapFilterObjectToStringQuery,
-} from "./SearchKlychProvider.utils";
 
 // biome-ignore lint/style/noNonNullAssertion: <If no context, the should be an error>
 const SearchKlychContext = createContext<SearchKlychContextValue>(null!);
@@ -23,26 +19,18 @@ type Response = {
   page: number;
 };
 
-export const SearchKlychProvider: React.FC<React.PropsWithChildren> = (
-  props,
-) => {
+export const SearchKlychProvider: React.FC<
+  React.PropsWithChildren<{ initResponse: Response }>
+> = (props) => {
   const [filter, setFilter] = useState<SearchKlychFilter>({
     search: "",
     categories: [],
   });
-  const [response, setResponse] = useState<Response>();
+  const [response, setResponse] = useState<Response>(props.initResponse);
 
   const makeSearch = useCallback(
     debounce(async (filter: SearchKlychFilter, page: number) => {
-      const index = publicMeiliClient.index("klych");
-      const response = await index.search(filter.search, {
-        hitsPerPage: 20,
-        page,
-        filter: mapFilterObjectToStringQuery(filter),
-        sort: getSorting(filter),
-      });
-
-      setResponse(response as unknown as Response);
+      setResponse(await searchKlychs(filter, page));
     }, 300),
     [],
   );
@@ -67,8 +55,13 @@ export const SearchKlychProvider: React.FC<React.PropsWithChildren> = (
       });
     };
 
-  const loadMore = () => {
-    makeSearch(filter, (response?.page || 0) + 1);
+  const loadMore = async () => {
+    const newResponse = await searchKlychs(filter, (response?.page || 0) + 1);
+    setResponse((prevResponse) => ({
+      hits: (prevResponse?.hits || []).concat(newResponse.hits),
+      page: newResponse.page,
+      totalPages: newResponse.totalPages,
+    }));
   };
 
   const value: SearchKlychContextValue = {

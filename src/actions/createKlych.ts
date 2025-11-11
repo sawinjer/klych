@@ -1,12 +1,13 @@
 "use server";
 
 import { headers } from "next/headers";
+import { v4 as uuid } from "uuid";
 import { auth } from "@/auth";
 import { db } from "@/db/db";
 import { type Klych, klych as klychTable } from "@/db/klychSchema";
-import { v4 as uuid } from "uuid";
 import { meiliClient } from "@/lib/meiliClient";
 import { stripTags } from "@/lib/stripTags";
+import { KlychCategory } from "@/lib/enums/KlychCategory";
 
 export type KlychCreationPayload = Omit<
   Klych,
@@ -36,9 +37,11 @@ export const createKlych = async (data: KlychCreationPayload) => {
   const { waitTask } = index.updateDocuments(
     [
       {
-        ...klych,
-        author: user,
+        id: klych.id,
+        title: klych.title,
         description: stripTags(klych.description),
+        category: klych.category,
+        online: klych.online,
         datetimeOfOccurance__timestamp: klych.datetimeOfOccurance.getTime(),
         _geo: klych.location && {
           lat: klych?.location?.x,

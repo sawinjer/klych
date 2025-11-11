@@ -16,17 +16,12 @@ export interface KlychSearchResult {
     x: number;
     y: number;
   };
-  datetimeOfOccurance: string;
+  datetimeOfOccurance: Date;
   authorId: string;
   author: {
     name: string;
-    image: string;
-    createdAt: string;
-    updatedAt: string;
     surname: string | null;
-    age: number | null;
   };
-  datetimeOfOccurance__timestamp: number;
 }
 
 export interface SearchKlychFilter {
@@ -40,7 +35,7 @@ export interface SearchKlychFilter {
 export type SearchKlychContextValue = SearchKlychFilter & {
   items: KlychSearchResult[];
   hasMoreItems: boolean;
-  loadMore: () => void;
+  loadMore: () => Promise<void>;
   setSearch: SetState<string>;
   setCategories: SetState<KlychCategory[]>;
   setLocation: SetState<Location | undefined>;
