@@ -4,9 +4,9 @@ import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { auth } from "@/auth";
 import { db } from "@/db/db";
-import { klychResponds } from "@/db/klychSchema";
+import { klychLike } from "@/db/klychSchema";
 
-export const getResponds = async () => {
+export const getLikes = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -16,12 +16,10 @@ export const getResponds = async () => {
     return [];
   }
 
-  const responses = await db
-    .select({
-      id: klychResponds.klychId,
-    })
-    .from(klychResponds)
-    .where(eq(klychResponds.authorId, user.id));
+  const likes = await db
+    .select({ klychId: klychLike.klychId })
+    .from(klychLike)
+    .where(eq(klychLike.authorId, user.id));
 
-  return responses.map((response) => response.id);
+  return likes.map((like) => like.klychId);
 };

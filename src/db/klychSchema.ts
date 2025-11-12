@@ -55,4 +55,14 @@ export const klychResponds = pgTable("klych_responds", {
   status: respondStatus("status").default("pending"),
 });
 
+export const klychLike = pgTable("klych_likes", {
+  id: text("id").primaryKey(),
+  klychId: text("klych_id")
+    .notNull()
+    .references(() => klych.id, { onDelete: "cascade" }),
+  authorId: text("author_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+});
+
 export type Klych = InferSelectModel<typeof klych>;

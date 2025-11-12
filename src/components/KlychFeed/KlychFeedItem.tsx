@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
+import { useLikes } from "@/providers/LikesProvider/LikesProvider";
 import { useSearchKlych } from "@/providers/SearchKlychProvider/SearchKlychProvider";
 import type { KlychSearchResult } from "@/providers/SearchKlychProvider/SearchKlychProvider.interface";
 import { Button } from "../Button/Button";
@@ -21,6 +22,7 @@ interface Props {
 export const KlychFeedItem: React.FC<Props> = (props) => {
   const { klych } = props;
   const { refresh } = useSearchKlych();
+  const { likes, toggleLike, loading } = useLikes();
   const authorName = [klych.author.name, klych.author.surname]
     .filter(Boolean)
     .join(" ");
@@ -71,7 +73,11 @@ export const KlychFeedItem: React.FC<Props> = (props) => {
         />
       </div>
       <div className="rounded-b-md bg-[#4E0700] h-[78px] w-full flex items-center justify-end gap-2 p-5">
-        <Button variant="outlined">
+        <Button
+          disabled={loading}
+          variant={likes.includes(klych.id) ? "contained" : "outlined"}
+          onClick={() => toggleLike(klych.id)}
+        >
           <Heart />
         </Button>
         <RespondButton
