@@ -14,7 +14,7 @@ const Layout: React.FC<React.PropsWithChildren> = async (props) => {
   }
 
   return (
-    <div className="w-full flex gap-10 py-10 px-5">
+    <div className="w-full flex items-start gap-10 py-10 px-5">
       <ProfileNavigation />
       {props.children}
     </div>

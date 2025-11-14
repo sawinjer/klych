@@ -64,6 +64,20 @@
       "when": 1762982561130,
       "tag": "0008_open_grandmaster",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1763052515748,
+      "tag": "0009_public_matthew_murdock",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1763108957546,
+      "tag": "0010_equal_namor",
+      "breakpoints": true
     }
   ]
 }

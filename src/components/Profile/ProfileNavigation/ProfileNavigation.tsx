@@ -1,18 +1,22 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Search, User } from "lucide-react";
 import type React from "react";
 import { LinkButton } from "@/components/Button/LinkBuntton";
 import { SignOutButton } from "@/components/SignOutButton/SignOutButton";
 
 export const ProfileNavigation: React.FC = () => {
   return (
-    <div className="flex flex-col gap-10 flex-wrap justify-center">
+    <div className="flex flex-col gap-4 flex-wrap justify-center">
       <LinkButton icon={<Search />} href="/profile" activeVariant="outlined">
-        Мій профіль
+        Моя стрічка
       </LinkButton>
-      <LinkButton href="/profile/my-klychs" activeVariant="outlined">
-        Мої кличі
+      <LinkButton
+        icon={<User />}
+        href="/profile/my-klychs"
+        activeVariant="outlined"
+      >
+        Профіль
       </LinkButton>
       <LinkButton href="/profile/saved" activeVariant="outlined">
         Збережені кличі

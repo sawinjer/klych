@@ -6,6 +6,7 @@ import { v4 as uuid } from "uuid";
 import { auth } from "@/auth";
 import { db } from "@/db/db";
 import { klychLike } from "@/db/klychSchema";
+import { getLikes } from "@/db/queries/getLikes";
 
 export const toggleLike = async (klychId: string) => {
   const session = await auth.api.getSession({
@@ -17,12 +18,7 @@ export const toggleLike = async (klychId: string) => {
     throw new Error("Not signed in user cannot like klychs");
   }
 
-  const like = await db
-    .select({ id: klychLike.id })
-    .from(klychLike)
-    .where(
-      and(eq(klychLike.klychId, klychId), eq(klychLike.authorId, user.id)),
-    );
+  const like = await getLikes(user.id, klychId);
 
   if (like.length) {
     await db.delete(klychLike).where(

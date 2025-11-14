@@ -1,10 +1,8 @@
 "use server";
 
-import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { auth } from "@/auth";
-import { db } from "@/db/db";
-import { klychLike } from "@/db/klychSchema";
+import { getLikes as queryLikes } from "@/db/queries/getLikes";
 
 export const getLikes = async () => {
   const session = await auth.api.getSession({
@@ -16,10 +14,7 @@ export const getLikes = async () => {
     return [];
   }
 
-  const likes = await db
-    .select({ klychId: klychLike.klychId })
-    .from(klychLike)
-    .where(eq(klychLike.authorId, user.id));
+  const likes = await queryLikes(user.id);
 
   return likes.map((like) => like.klychId);
 };

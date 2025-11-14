@@ -16,6 +16,8 @@ export const categoryEnum = pgEnum(
   Object.values(KlychCategory) as [string],
 );
 
+export const klychStatus = pgEnum("klych_status", ["active", "finished"]);
+
 export const respondStatus = pgEnum("respond_status", [
   "pending",
   "accepted",
@@ -35,7 +37,7 @@ export const klych = pgTable("klych", {
   location: geometry("location", { type: "point", mode: "xy", srid: 4326 }),
   datetimeOfOccurance: timestamp("datetime_of_occurance").notNull(),
   requiredPeoplesAmount: numeric("required_peoples_amount"),
-
+  status: klychStatus("status").default("active").notNull(),
   description: text("description").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
@@ -53,6 +55,7 @@ export const klychResponds = pgTable("klych_responds", {
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   status: respondStatus("status").default("pending"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const klychLike = pgTable("klych_likes", {
@@ -63,6 +66,7 @@ export const klychLike = pgTable("klych_likes", {
   authorId: text("author_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export type Klych = InferSelectModel<typeof klych>;
