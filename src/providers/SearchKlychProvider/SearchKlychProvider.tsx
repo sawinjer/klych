@@ -29,12 +29,19 @@ export const SearchKlychProvider: React.FC<
   const [response, setResponse] = useState<Response>(props.initResponse);
 
   const refresh = async () => {
-    setResponse(await searchKlychs(filter, response.page));
+    const newResponse = await searchKlychs(filter, response.page);
+    if (newResponse) {
+      setResponse(newResponse);
+    }
   };
 
   const makeSearch = useCallback(
     debounce(async (filter: SearchKlychFilter, page: number) => {
-      setResponse(await searchKlychs(filter, page));
+      const response = await searchKlychs(filter, page);
+
+      if (response) {
+        setResponse(response);
+      }
     }, 300),
     [],
   );
@@ -43,24 +50,29 @@ export const SearchKlychProvider: React.FC<
     <K extends keyof SearchKlychFilter>(
       field: K,
     ): SetState<SearchKlychFilter[K]> =>
-    (change) => {
-      setFilter((prevFilter) => {
-        const newValueForField =
-          typeof change === "function" ? change(prevFilter[field]) : change;
+      (change) => {
+        setFilter((prevFilter) => {
+          const newValueForField =
+            typeof change === "function" ? change(prevFilter[field]) : change;
 
-        const newFilter = {
-          ...prevFilter,
-          [field]: newValueForField,
-        };
+          const newFilter = {
+            ...prevFilter,
+            [field]: newValueForField,
+          };
 
-        makeSearch(newFilter, 1);
+          makeSearch(newFilter, 1);
 
-        return newFilter;
-      });
-    };
+          return newFilter;
+        });
+      };
 
   const loadMore = async () => {
     const newResponse = await searchKlychs(filter, (response?.page || 0) + 1);
+
+    if (!newResponse) {
+      return;
+    }
+
     setResponse((prevResponse) => ({
       hits: (prevResponse?.hits || []).concat(newResponse.hits),
       page: newResponse.page,

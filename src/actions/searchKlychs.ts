@@ -13,15 +13,22 @@ import {
   getSorting,
   mapFilterObjectToStringQuery,
 } from "@/providers/SearchKlychProvider/SearchKlychProvider.utils";
+import { safeTryPromise } from "@/lib/safeTryPromise";
 
 export const searchKlychs = async (filter: SearchKlychFilter, page: number) => {
   const index = meiliClient.index("klych");
-  const response = await index.search(filter.search, {
-    hitsPerPage: 20,
-    page,
-    filter: mapFilterObjectToStringQuery(filter),
-    sort: getSorting(filter),
-  });
+  const [response, err] = await safeTryPromise(
+    index.search(filter.search, {
+      hitsPerPage: 20,
+      page,
+      filter: mapFilterObjectToStringQuery(filter),
+      sort: getSorting(filter),
+    }),
+  );
+
+  if (err) {
+    return;
+  }
 
   const ids = response.hits.map((hit) => hit.id) as string[];
 

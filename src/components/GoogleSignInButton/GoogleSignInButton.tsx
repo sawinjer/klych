@@ -5,12 +5,9 @@ import "./GoogleSingInButton.styles.css";
 
 export const GoogleSignInButton: React.FC = () => {
   const onClick = () => {
-    authClient.signIn
-      .social({
-        provider: "google",
-      })
-      .then(console.log)
-      .catch(console.log);
+    authClient.signIn.social({
+      provider: "google",
+    });
   };
 
   return (

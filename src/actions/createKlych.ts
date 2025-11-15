@@ -7,11 +7,10 @@ import { db } from "@/db/db";
 import { type Klych, klych as klychTable } from "@/db/klychSchema";
 import { meiliClient } from "@/lib/meiliClient";
 import { stripTags } from "@/lib/stripTags";
-import { KlychCategory } from "@/lib/enums/KlychCategory";
 
 export type KlychCreationPayload = Omit<
   Klych,
-  "id" | "authorId" | "createdAt" | "updatedAt"
+  "id" | "authorId" | "createdAt" | "updatedAt" | "status"
 >;
 
 export const createKlych = async (data: KlychCreationPayload) => {

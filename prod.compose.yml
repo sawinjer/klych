@@ -1,0 +1,111 @@
+services:
+  db:
+    image: postgis/postgis:17-3.4
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+    networks:
+      - klych-app-network
+  migrate:
+    build:
+      context: .
+      dockerfile: DbMigrate.Dockerfile
+    restart: "no" # Runs once and exits
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_HOST=${DB_HOST}
+    networks:
+      - klych-app-network
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DB_PORT=${DB_PORT}
+        - DB_USER=${DB_USER}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - DB_NAME=${DB_NAME}
+        - DB_HOST=${DB_HOST}
+        - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+        - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+        - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+        - EMAIL_HOST=${EMAIL_HOST}
+        - EMAIL_PORT=${EMAIL_PORT}
+        - EMAIL_USER=${EMAIL_USER}
+        - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+        - MINIO_ENDPOINT=${MINIO_ENDPOINT}
+        - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+        - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+        - MINIO_BUCKET=${MINIO_BUCKET}
+        - MINIO_USE_SSL=${MINIO_USE_SSL}
+        - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+        - NEXT_PUBLIC_MEILI_HOST=${NEXT_PUBLIC_MEILI_HOST}
+        - NEXT_PUBLIC_MEILI_USE_SSL=${NEXT_PUBLIC_MEILI_USE_SSL}
+        - NEXT_PUBLIC_MEILI_PORT=${NEXT_PUBLIC_MEILI_PORT}
+        - NEXT_PUBLIC_MEILI_TOKEN=${NEXT_PUBLIC_MEILI_TOKEN}
+        - NEXT_PUBLIC_MAPBOX_TOKEN=${NEXT_PUBLIC_MAPBOX_TOKEN}
+    environment:
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_HOST=${DB_HOST}
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_PORT=${EMAIL_PORT}
+      - EMAIL_USER=${EMAIL_USER}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      - MINIO_ENDPOINT=${MINIO_ENDPOINT}
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+      - MINIO_BUCKET=${MINIO_BUCKET}
+      - MINIO_USE_SSL=${MINIO_USE_SSL}
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+      - NEXT_PUBLIC_MEILI_HOST=${NEXT_PUBLIC_MEILI_HOST}
+      - NEXT_PUBLIC_MEILI_USE_SSL=${NEXT_PUBLIC_MEILI_USE_SSL}
+      - NEXT_PUBLIC_MEILI_PORT=${NEXT_PUBLIC_MEILI_PORT}
+      - NEXT_PUBLIC_MEILI_TOKEN=${NEXT_PUBLIC_MEILI_TOKEN}
+      - NEXT_PUBLIC_MAPBOX_TOKEN=${NEXT_PUBLIC_MAPBOX_TOKEN}
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    deploy:
+      replicas: 3
+    networks:
+      - klych-app-network
+    volumes:
+      - nextjs_cache:/app/.next/cache
+  image-cleaner:
+    image: alpine:latest
+    restart: unless-stopped
+    volumes:
+      - nextjs_cache:/app/.next/cache
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        echo "Starting cron to clear old images daily..."
+        echo "0 3 * * * find /app/.next/cache/images -type f -mtime +7 -delete" > /etc/crontabs/root
+        crond -f -L /var/log/cron.log
+volumes:
+  nextjs_cache:
+  db:
+networks:
+  klych-app-network:

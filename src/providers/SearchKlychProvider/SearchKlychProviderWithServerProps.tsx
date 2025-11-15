@@ -6,6 +6,10 @@ export const SearchKlychProviderWithServerProps: React.FC<
 > = async (props) => {
   const initResponse = await searchKlychs({ search: "", categories: [] }, 1);
 
+  if (!initResponse) {
+    return null;
+  }
+
   return (
     <SearchKlychProvider initResponse={initResponse}>
       {props.children}

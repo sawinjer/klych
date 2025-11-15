@@ -1,6 +1,6 @@
+import { getDatabaseUrl } from "@/env/dbEnv";
 import "dotenv/config";
 import { defineConfig } from "drizzle-kit";
-import { getDatabaseUrl } from "./src/env/env";
 
 export default defineConfig({
   out: "./drizzle",

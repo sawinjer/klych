@@ -53,7 +53,6 @@ export const Calendar24: React.FC<Props> = (props) => {
     }
 
     const value = e.target.value;
-    console.log(value);
     const [hours, minutes, seconds] = value.split(":").map((value) => {
       const time = parseInt(value, 10);
 

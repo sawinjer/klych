@@ -4,16 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
     "auth:generate": "bunx @better-auth/cli generate --output ./src/db/authSchema.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:migrate": "bunx drizzle-kit migrate",
     "db:push": "drizzle-kit push",
-    "studio": "drizzle-kit studio",
-    "make-key": "bun ./src/lib/generateMeiliPublicToken.ts"
+    "meili:init": "bun ./src/init/init.ts",
+    "meili:make-key": "bun ./src/lib/generateMeiliPublicToken.ts",
+    "studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.922.0",
