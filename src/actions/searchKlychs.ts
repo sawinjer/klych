@@ -5,6 +5,7 @@ import { user } from "@/db/authSchema";
 import { db } from "@/db/db";
 import { klych, klychResponds } from "@/db/klychSchema";
 import { meiliClient } from "@/lib/meiliClient";
+import { safeTryPromise } from "@/lib/safeTryPromise";
 import type {
   KlychSearchResult,
   SearchKlychFilter,
@@ -13,7 +14,6 @@ import {
   getSorting,
   mapFilterObjectToStringQuery,
 } from "@/providers/SearchKlychProvider/SearchKlychProvider.utils";
-import { safeTryPromise } from "@/lib/safeTryPromise";
 
 export const searchKlychs = async (filter: SearchKlychFilter, page: number) => {
   const index = meiliClient.index("klych");
@@ -27,6 +27,7 @@ export const searchKlychs = async (filter: SearchKlychFilter, page: number) => {
   );
 
   if (err) {
+    console.error('[MEILI ERROR]', err);
     return;
   }
 

@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Logo } from "../Logo/Logo";
-import { LinkButton } from "../Button/LinkBuntton";
 import { authClient } from "@/lib/auth-client";
+import { LinkButton } from "../Button/LinkBuntton";
+import { Logo } from "../Logo/Logo";
 
 export const Header: React.FC = () => {
   const {
@@ -15,7 +15,7 @@ export const Header: React.FC = () => {
     <header className="flex gap-8 items-center justify-center">
       <Logo />
       <nav className="flex gap-8">
-        <Link href="/list">Кличі</Link>
+        <Link href="/klychi">Кличі</Link>
         <Link href="/request">Кинути клич</Link>
         <Link href="/stories">Історії</Link>
         <Link href="/partners">Партнерам</Link>

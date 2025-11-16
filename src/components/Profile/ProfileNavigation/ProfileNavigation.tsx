@@ -18,7 +18,11 @@ export const ProfileNavigation: React.FC = () => {
       >
         Профіль
       </LinkButton>
-      <LinkButton icon={<Megaphone />} href="/profile/my-klychs" activeVariant="outlined">
+      <LinkButton
+        icon={<Megaphone />}
+        href="/profile/my-klychs"
+        activeVariant="outlined"
+      >
         Мої кличі
       </LinkButton>
       <LinkButton href="/profile/rating" activeVariant="outlined">

@@ -50,21 +50,21 @@ export const SearchKlychProvider: React.FC<
     <K extends keyof SearchKlychFilter>(
       field: K,
     ): SetState<SearchKlychFilter[K]> =>
-      (change) => {
-        setFilter((prevFilter) => {
-          const newValueForField =
-            typeof change === "function" ? change(prevFilter[field]) : change;
+    (change) => {
+      setFilter((prevFilter) => {
+        const newValueForField =
+          typeof change === "function" ? change(prevFilter[field]) : change;
 
-          const newFilter = {
-            ...prevFilter,
-            [field]: newValueForField,
-          };
+        const newFilter = {
+          ...prevFilter,
+          [field]: newValueForField,
+        };
 
-          makeSearch(newFilter, 1);
+        makeSearch(newFilter, 1);
 
-          return newFilter;
-        });
-      };
+        return newFilter;
+      });
+    };
 
   const loadMore = async () => {
     const newResponse = await searchKlychs(filter, (response?.page || 0) + 1);

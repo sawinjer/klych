@@ -43,14 +43,14 @@ export const Input = <T extends Suggestion>(props: InputProps<T>) => {
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <div className={
-        cx(
+      <div
+        className={cx(
           "flex gap-2 items-center relative pl-2",
           "border border-[#F7F4E3] transition-colors duration-200 rounded-xl h-[48px]",
           focused.state && "border-ring ring-ring/50 ring-[3px]",
-          rest.disabled && "cursor-not-allowed border-[#C4C1B1] text-gray-300"
-        )
-      }>
+          rest.disabled && "cursor-not-allowed border-[#C4C1B1] text-gray-300",
+        )}
+      >
         {Boolean(label) && (
           <label htmlFor={id} className={labelClassName}>
             {Boolean(rest.required) && <sup className="text-red-500">*</sup>}

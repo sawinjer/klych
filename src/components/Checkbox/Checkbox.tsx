@@ -17,7 +17,10 @@ export const Checkbox: React.FC<Props> = (props) => {
     <>
       <label
         htmlFor={id}
-        className={cx("flex items-center gap-2 cursor-pointer w-fit", props.className)}
+        className={cx(
+          "flex items-center gap-2 cursor-pointer w-fit",
+          props.className,
+        )}
       >
         {props.label && <p>{props.label}</p>}
         <div className="w-[25px] aspect-square rounded-md border-1 border-white flex items-center justify-center">

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import type { Klych } from "@/db/klychSchema";
 import { CardsGrid } from "../CardsGrid/CardsGrid";
@@ -16,7 +16,7 @@ interface Props {
 export const MyKlychsGridClient: React.FC<Props> = (props) => {
   const loadMore = (pagination: Pagination) => {
     return loadMoreKlychs(props.userId, pagination, props.finished);
-  }
+  };
 
   return (
     <CardsGrid

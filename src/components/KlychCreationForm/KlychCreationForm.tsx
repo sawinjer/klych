@@ -19,7 +19,7 @@ import { usePromise } from "@/lib/hooks/usePromise";
 import { useRouter } from "next/navigation";
 
 export const KlychCreationForm: React.FC = () => {
-  const [loading, wrapSubmit] = usePromise()
+  const [loading, wrapSubmit] = usePromise();
   const [coverImage, setCoverImage] = useState<string>();
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState<KlychCategory>();
@@ -118,7 +118,11 @@ export const KlychCreationForm: React.FC = () => {
       <Calendar24 date={klychDate} onDateChange={setKlychDate} />
       <TextEditor onValueChange={setDescription} />
       <div className="flex justify-end">
-        <Button type="submit" className="w-fit" disabled={!hasAllRequiredData || loading}>
+        <Button
+          type="submit"
+          className="w-fit"
+          disabled={!hasAllRequiredData || loading}
+        >
           Опублікувати
         </Button>
       </div>

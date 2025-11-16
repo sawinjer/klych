@@ -3,6 +3,8 @@ import { KlychFilters } from "@/components/KlychFilters/KlychFilters";
 import { KlychSearchInput } from "@/components/KlychSearchInput/KlychSearchInput";
 import { SearchKlychProviderWithServerProps } from "@/providers/SearchKlychProvider/SearchKlychProviderWithServerProps";
 
+export const dynamic = "force-dynamic";
+
 const KlychsList = () => {
   return (
     <SearchKlychProviderWithServerProps>
