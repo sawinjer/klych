@@ -70,3 +70,4 @@ export const klychLike = pgTable("klych_likes", {
 });
 
 export type Klych = InferSelectModel<typeof klych>;
+export type KlychRepondStatus = (typeof respondStatus.enumValues)[number];

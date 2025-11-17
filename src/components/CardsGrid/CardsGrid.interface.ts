@@ -4,4 +4,5 @@ export interface CardData {
   subTitle: string;
   image: string;
   disabled?: boolean;
+  footer?: React.ReactNode;
 }

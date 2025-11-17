@@ -1,8 +1,8 @@
-import { auth } from "@/auth";
-import { MyKlychsGrid } from "@/components/MyKlychsGrid/MyKlychsGrid";
 import { CircleCheck, Megaphone } from "lucide-react";
 import { headers } from "next/headers";
 import type React from "react";
+import { auth } from "@/auth";
+import { MyKlychsGrid } from "@/components/MyKlychsGrid/MyKlychsGrid";
 
 const MyKlychsPage: React.FC = async () => {
   const session = await auth.api.getSession({

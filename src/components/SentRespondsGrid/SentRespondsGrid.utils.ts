@@ -10,7 +10,7 @@ export const mapRespondToCard = (respond: Respond): CardData => ({
   disabled: respond.klych.status === "finished",
 });
 
-const statusToText = {
+export const statusToText = {
   pending: "Очікує",
   accepted: "Прийнятий",
   declined: "Відхилений",

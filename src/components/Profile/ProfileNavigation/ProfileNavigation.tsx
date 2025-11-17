@@ -1,6 +1,6 @@
 "use client";
 
-import { Megaphone, Search, User } from "lucide-react";
+import { CircleCheck, Megaphone, Search, User } from "lucide-react";
 import type React from "react";
 import { LinkButton } from "@/components/Button/LinkBuntton";
 import { SignOutButton } from "@/components/SignOutButton/SignOutButton";
@@ -25,8 +25,12 @@ export const ProfileNavigation: React.FC = () => {
       >
         Мої кличі
       </LinkButton>
-      <LinkButton href="/profile/rating" activeVariant="outlined">
-        Рейтинг
+      <LinkButton
+        icon={<CircleCheck />}
+        href="/profile/responds"
+        activeVariant="outlined"
+      >
+        Відгуки
       </LinkButton>
       <LinkButton href="/profile/notifications" activeVariant="outlined">
         Сповіщення
