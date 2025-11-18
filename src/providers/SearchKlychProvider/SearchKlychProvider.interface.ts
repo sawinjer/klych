@@ -9,8 +9,8 @@ export interface KlychSearchResult {
   coverImage: string;
   category: KlychCategory;
   online: boolean;
-  requiredPeoplesAmount: string;
-  locationName?: string;
+  requiredPeoplesAmount: string | null;
+  locationName?: string | null;
   location?: {
     x: number;
     y: number;

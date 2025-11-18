@@ -32,7 +32,7 @@ export const RespondButton: React.FC<Props> = (props) => {
     tooltip = "Ви уже надіслали заявку";
   }
 
-  const onClick = () => {
+  const onClick: React.MouseEventHandler = () => {
     if (!data) {
       router.push(
         `/sign-in?callback=${encodeURIComponent(`/klych/${props.klychId}`)}`,
