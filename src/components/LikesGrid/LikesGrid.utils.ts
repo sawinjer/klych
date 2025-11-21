@@ -6,4 +6,5 @@ export const mapKlychToCard = (klych: Klych): CardData => ({
   title: klych.status === "active" ? "Активний" : "Завершений",
   subTitle: klych.title,
   image: klych.coverImage,
+  link: `/klych/${klych.id}`,
 });

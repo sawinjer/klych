@@ -1,15 +1,6 @@
-"use client";
-
-import { authClient } from "@/lib/auth-client";
 import { LinkButton } from "../Button/LinkBuntton";
 
 export const SingInBanner: React.FC = () => {
-  const { data } = authClient.useSession();
-
-  if (!data) {
-    return null;
-  }
-
   return (
     <div className="flex items-center flex-col gap-5">
       <h2 className="text-[32px] text-center font-bold">

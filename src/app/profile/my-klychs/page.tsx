@@ -17,8 +17,7 @@ const MyKlychsPage: React.FC = async () => {
       <h1 className="text-[64px]">
         Клич і прийдуть, {session.user.name || "Безіменний"}
       </h1>
-
-      <MyKlychsGrid userId={session.user.id} finished />
+      <MyKlychsGrid />
     </div>
   );
 };

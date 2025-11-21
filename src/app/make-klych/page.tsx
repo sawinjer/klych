@@ -10,7 +10,7 @@ const MakeKlychPage: React.FC = async () => {
   });
 
   if (!session?.session) {
-    redirect("/");
+    redirect("/sign-in");
   }
 
   return (

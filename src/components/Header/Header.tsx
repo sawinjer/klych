@@ -16,7 +16,7 @@ export const Header: React.FC = () => {
       <Logo />
       <nav className="flex gap-8">
         <Link href="/klychi">Кличі</Link>
-        <Link href="/request">Кинути клич</Link>
+        <Link href="/make-klych">Кинути клич</Link>
         <Link href="/stories">Історії</Link>
         <Link href="/partners">Партнерам</Link>
         <Link href="/about-us">Про нас</Link>

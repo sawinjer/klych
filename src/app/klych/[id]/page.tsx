@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import sanitize from "sanitize-html";
 import { KlychHeder } from "@/components/KlychHeader/KlychHeader";
-import { getKlychById } from "@/db/queries/getKlychById";
-import { RespondsProvider } from "@/providers/RespondsProvider/RespondsProvider";
 import { RespondButton } from "@/components/RespondButton/RespondButton";
 import { SingInBanner } from "@/components/SingInBanner/SingInBanner";
+import { getKlychById } from "@/db/queries/getKlychById";
+import { RespondsProvider } from "@/providers/RespondsProvider/RespondsProvider";
+import { getUserInServer } from "@/lib/getUserInServer";
 
 interface Props {
   params: Promise<{
@@ -15,6 +16,7 @@ interface Props {
 const KlychPage: React.FC<Props> = async (props) => {
   const params = await props.params;
   const klych = await getKlychById(params.id);
+  const user = await getUserInServer();
 
   if (!klych) {
     return notFound();
@@ -42,7 +44,7 @@ const KlychPage: React.FC<Props> = async (props) => {
               <RespondButton klychId={klych.id} authorId={klych.authorId} />
             </div>
           </div>
-          <SingInBanner />
+          {!user && <SingInBanner />}
         </div>
       </div>
     </RespondsProvider>

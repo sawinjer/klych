@@ -8,6 +8,7 @@ export const mapRespondToCard = (respond: Respond): CardData => ({
   subTitle: respond.klych.title,
   image: respond.klych.coverImage,
   disabled: respond.klych.status === "finished",
+  link: `/klych/${respond.klych.id}`,
 });
 
 export const statusToText = {
