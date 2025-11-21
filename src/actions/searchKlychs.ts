@@ -27,7 +27,7 @@ export const searchKlychs = async (filter: SearchKlychFilter, page: number) => {
   );
 
   if (err) {
-    console.error('[MEILI ERROR]', err);
+    console.error("[MEILI ERROR]", err);
     return;
   }
 

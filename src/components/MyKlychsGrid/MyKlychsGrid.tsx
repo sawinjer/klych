@@ -1,25 +1,26 @@
 import { getMyKlyches, getMyKlychesCount } from "@/db/queries/getMyKlyches";
+import { getUserInServer } from "@/lib/getUserInServer";
 import { MyKlychsGridClient } from "./MyKlychsGridClient";
 
-interface Props {
-  userId: string;
-  finished?: boolean;
-}
+export const MyKlychsGrid: React.FC = async () => {
+  const pagination = { page: 1, itemsPerPage: 3 };
+  const user = await getUserInServer();
 
-export const MyKlychsGrid: React.FC<Props> = async (props) => {
-  const initialItems = await getMyKlyches(
-    props.userId,
-    { page: 1, itemsPerPage: 3 },
-    props.finished,
-  );
-  const totalItems = await getMyKlychesCount(props.userId, props.finished);
+  if (!user) {
+    return null;
+  }
+
+  const onGoingKlychs = await getMyKlyches(user.id, pagination, false);
+  const onGoingCount = await getMyKlychesCount(user.id, false);
+  const finishedKlychs = await getMyKlyches(user.id, pagination, true);
+  const finishedKlychsCount = await getMyKlychesCount(user.id, true);
 
   return (
     <MyKlychsGridClient
-      userId={props.userId}
-      totalItems={totalItems}
-      initialItems={initialItems}
-      finished={props.finished}
+      finishedKlychs={finishedKlychs}
+      finishedKlychsCount={finishedKlychsCount}
+      onGoingKlychs={onGoingKlychs}
+      onGoingCount={onGoingCount}
     />
   );
 };

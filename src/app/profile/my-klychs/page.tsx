@@ -1,4 +1,3 @@
-import { CircleCheck, Megaphone } from "lucide-react";
 import { headers } from "next/headers";
 import type React from "react";
 import { auth } from "@/auth";
@@ -18,18 +17,8 @@ const MyKlychsPage: React.FC = async () => {
       <h1 className="text-[64px]">
         Клич і прийдуть, {session.user.name || "Безіменний"}
       </h1>
-      <div className="flex flex-col gap-5">
-        <div className="flex gap-2 text-[36px] font-bold items-center">
-          <Megaphone size={32} color="red" /> <h2>Активні Кличі</h2>
-        </div>
-        <MyKlychsGrid userId={session.user.id} finished={false} />
-      </div>
-      <div className="flex flex-col gap-5">
-        <div className="flex gap-2 text-[36px] font-bold items-center">
-          <CircleCheck size={32} color="red" /> <h2>Завершені Кличі</h2>
-        </div>
-        <MyKlychsGrid userId={session.user.id} finished />
-      </div>
+
+      <MyKlychsGrid userId={session.user.id} finished />
     </div>
   );
 };
