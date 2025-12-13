@@ -44,7 +44,7 @@ const QuillBox: React.FC<Props> = (props) => {
   }, [id, props.onValueChange, props.initialValue]);
 
   return (
-    <div>
+    <div className="w-full">
       <div id={id}></div>
     </div>
   );

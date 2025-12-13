@@ -1,21 +1,11 @@
-import {
-  Calendar,
-  Clock,
-  Heart,
-  House,
-  Map as MapIcon,
-  User,
-} from "lucide-react";
-import moment from "moment";
-import Image from "next/image";
+import { Heart } from "lucide-react";
 import Link from "next/link";
 import { useLikes } from "@/providers/LikesProvider/LikesProvider";
 import { useSearchKlych } from "@/providers/SearchKlychProvider/SearchKlychProvider";
 import type { KlychSearchResult } from "@/providers/SearchKlychProvider/SearchKlychProvider.interface";
 import { Button } from "../Button/Button";
-import { categoriesOptionsDict } from "../KlychCreationForm/KlychCategorySelect";
-import { RespondButton } from "../RespondButton/RespondButton";
 import { KlychHeder } from "../KlychHeader/KlychHeader";
+import { RespondButton } from "../RespondButton/RespondButton";
 
 interface Props {
   klych: KlychSearchResult;

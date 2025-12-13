@@ -1,10 +1,11 @@
 import zod from "zod";
+import { MAX_PORT_NUMBER } from "./constants";
 import { dbEnvSchema, escapeProcessEnvForDbEnv } from "./dbEnv";
 import { escapeProcessEnvForS3UrlEnv, s3UrlEnvSchema } from "./s3UrlEnv";
-import { MAX_PORT_NUMBER } from "./constants";
 
 const envSchema = zod.object({
   ...dbEnvSchema,
+  ADMIN_EMAILS: zod.array(zod.string().email()).optional(),
   GOOGLE_CLIENT_ID: zod.string().nonempty(),
   GOOGLE_CLIENT_SECRET: zod.string().nonempty(),
 
@@ -24,5 +25,6 @@ export const env = envSchema.parse({
   ...process.env,
   ...escapeProcessEnvForS3UrlEnv(),
   ...escapeProcessEnvForDbEnv(),
+  ADMIN_EMAILS: process.env.ADMIN_EMAILS?.split(","),
   EMAIL_PORT: +(process.env.EMAIL_PORT || ""),
 });

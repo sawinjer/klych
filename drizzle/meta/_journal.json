@@ -78,6 +78,20 @@
       "when": 1763108957546,
       "tag": "0010_equal_namor",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1763752153583,
+      "tag": "0011_lively_zaladane",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1763754590486,
+      "tag": "0012_little_kronos",
+      "breakpoints": true
     }
   ]
 }

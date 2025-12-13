@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { LinkButtonProps } from "./Button.types";
 import { getButtonClassName } from "./Button.utils";
-import { ButtonIcon } from "./ButtonIcon";
 
 export const LinkButton: React.FC<LinkButtonProps> = (props) => {
   const { variant, icon, activeVariant, children, ...rest } = props;
@@ -15,10 +14,15 @@ export const LinkButton: React.FC<LinkButtonProps> = (props) => {
   return (
     <Link
       {...rest}
-      className={getButtonClassName(currentVariant, rest.className)}
+      className={getButtonClassName({
+        variant: currentVariant,
+        className: rest.className,
+        hasIcon: !!icon,
+      })}
     >
-      <ButtonIcon>{icon}</ButtonIcon>
+      {icon}
       {children}
+      {!!icon && <span></span>}
     </Link>
   );
 };

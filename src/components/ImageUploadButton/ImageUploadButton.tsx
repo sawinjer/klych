@@ -9,6 +9,7 @@ import { uploadPicture } from "@/lib/uploadPicture";
 interface Props {
   width: number;
   height: number;
+  uploadScale?: number;
   alt: string;
   onUploadDone: (url: string) => void;
   imageUrl?: string;
@@ -35,7 +36,12 @@ export const ImageUploadButton: React.FC<Props> = (props) => {
       setImage(url);
     });
 
-    const url = await uploadPicture(file, props.width, props.height);
+    const uploadScale = props.uploadScale || 1;
+    const url = await uploadPicture(
+      file,
+      props.width * uploadScale,
+      props.height * uploadScale,
+    );
     fileUploaded = true;
 
     setImage(url);
