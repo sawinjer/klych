@@ -13,7 +13,9 @@ export const Header: React.FC = () => {
 
   return (
     <header className="flex gap-8 items-center justify-center">
-      <Logo />
+      <Link href="/">
+        <Logo />
+      </Link>
       <nav className="flex gap-8">
         <Link href="/klychi">Кличі</Link>
         <Link href="/make-klych">Кинути клич</Link>

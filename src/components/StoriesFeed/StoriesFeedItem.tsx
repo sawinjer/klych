@@ -14,7 +14,7 @@ export const StoriesFeedItem: React.FC<Props> = (props) => {
   const isAdmin = data?.user.role === UserRole.Admin;
 
   return (
-    <Link href={`/story/${story.id}`}>
+    <Link href={`/stories/${story.id}`}>
       <article className="flex justify-between items-center">
         <div className="flex flex-col gap-2">
           <div className="flex gap-2">
