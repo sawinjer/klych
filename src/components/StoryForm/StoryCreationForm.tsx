@@ -12,7 +12,7 @@ export const StoryCreationForm: React.FC = () => {
     const id = await createStory(story);
 
     if (id) {
-      router.push(`/story/${id}`);
+      router.push(`/stories/${id}`);
     }
   };
 
