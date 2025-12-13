@@ -43,7 +43,10 @@ const StoryPage: React.FC<Props> = async (props) => {
             dangerouslySetInnerHTML={{
               __html: sanitize(story.description),
             }}
-            className="flex-1 text-justify leading-relaxed max-w-full"
+            className="flex-1 text-justify leading-relaxed max-w-full word"
+            style={{
+              wordBreak: "break-word",
+            }}
           />
           <div className="w-[280px] flex-shrink-0">
             <div className="rounded-md border-1 border-white p-6 h-fit flex flex-col gap-4 sticky top-10">
